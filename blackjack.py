@@ -1,6 +1,9 @@
 import random
 
 def main(mazo, manos_jugador, mano_casa):
+    # Mostrar la bienvenida antes de iniciar el juego
+    mostrar_bienvenida()
+
     random.shuffle(mazo)      
     
     # Repartir cartas iniciales al jugador y la casa
@@ -22,6 +25,16 @@ def main(mazo, manos_jugador, mano_casa):
 
     # Si no se realiza el split, jugar normalmente con la mano inicial
     jugar_mano(mazo, manos_jugador, mano_casa)
+
+def mostrar_bienvenida():
+    # Mensaje de bienvenida decorativo
+    print("=" * 50)
+    print("¡Bienvenido/a al Blackjack Recursivo!")
+    print("El objetivo del juego es alcanzar 21 o acercarse lo más posible sin pasarse.")
+    print("Si tienes dos cartas del mismo valor, puedes hacer 'split' para jugar con dos manos.")
+    print("¡Buena suerte y que disfrutes el juego!")
+    print("=" * 50)
+    input("Presiona Enter para comenzar a jugar...")  # Pausa antes de iniciar el juego
 
 def jugar_mano(mazo, manos_jugador, mano_casa):
     # Recorrer cada mano del jugador y jugar de forma independiente
