@@ -51,8 +51,7 @@ El objetivo del juego es acercarse lo más posible a 21 sin pasarse, compitiendo
 
    ```bash
    python blackjack.py
-   
-## Características principales
+
 
 
 
