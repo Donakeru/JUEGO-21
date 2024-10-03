@@ -35,6 +35,10 @@ El objetivo del juego es acercarse lo más posible a 21 sin pasarse, compitiendo
    - Si las dos cartas iniciales del jugador tienen el mismo valor (por ejemplo, dos 8s), el jugador puede optar por hacer un *split*, dividiendo su mano en dos manos separadas.
    - Cada mano se juega de manera independiente, siguiendo las reglas normales del juego.
 
+4. **Obligación de la casa**:
+   - La casa está obligada a pedir una carta adicional si el valor total de su mano es menor a 17.
+   - Una vez que el crupier alcanza 17 o más, deja de pedir cartas.
+   
 4. **Ganar o Perder**:
    - Si el valor de la mano del jugador es mayor que el de la casa sin pasarse de 21, el jugador gana.
    - Si el valor de la mano de la casa es mayor que el del jugador sin pasarse de 21, la casa gana.
