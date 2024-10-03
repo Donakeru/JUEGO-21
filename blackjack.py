@@ -50,9 +50,9 @@ def main(mazo, manos_jugador, mano_casa):
     # Mostrar la mano final del dealer
     print(f"Mano final de la casa: {mano_casa} - Valor de la mano: {suma_mano(mano_casa)}")
     
-    if suma_mano(mano_casa) > 21 or suma_mano(mano_jugador[0]) > suma_mano(mano_casa):
+    if suma_mano(mano_casa) > 21 or suma_mano(manos_jugador[0]) > suma_mano(mano_casa):
         print("¡Felicidades, ganaste!")
-    elif suma_mano(mano_casa) > suma_mano(mano_jugador[0]):
+    elif suma_mano(mano_casa) > suma_mano(manos_jugador[0]):
         print("La casa gana, ¡mejor suerte la próxima!")
     else:
         print("Empate.")
