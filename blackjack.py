@@ -23,45 +23,61 @@ def main(mazo, manos_jugador, mano_casa):
     # Si no se realiza el split, jugar normalmente con la mano inicial
     jugar_mano(mazo, manos_jugador, mano_casa)
 
-    def jugar_mano(mazo, manos_jugador, mano_casa):
-        # Recorrer cada mano del jugador y jugar de forma independiente
-        for i in range(len(manos_jugador)):
-            while True:
-                print(f"Mano {i+1} del jugador: {manos_jugador[i]} - Valor de la mano: {suma_mano(manos_jugador[i])}")
+def jugar_mano(mazo, manos_jugador, mano_casa):
+    # Recorrer cada mano del jugador y jugar de forma independiente
+    for i in range(len(manos_jugador)):
+        while True:
+            print(f"Mano {i+1} del jugador: {manos_jugador[i]} - Valor de la mano: {suma_mano(manos_jugador[i])}")
                 
-                if suma_mano(manos_jugador[i]) > 21:
-                    print(f"Mano {i+1}: Te has pasado de 21 ¡PERDISTE!")
-                    break
-                elif suma_mano(manos_jugador[i]) == 21:
-                    print(f"Mano {i+1}: ¡Hiciste 21, GANASTE!")
-                    break
+            if suma_mano(manos_jugador[i]) > 21:
+                print(f"Mano {i+1}: Te has pasado de 21 ¡PERDISTE!")
+                break
+            elif suma_mano(manos_jugador[i]) == 21:
+                print(f"Mano {i+1}: ¡Hiciste 21, GANASTE!")
+                break
                 
-                if input(f"¿Quiere pedir una nueva carta en la Mano {i+1}? (s/n): ").lower() != 's':
-                    break
+            if input(f"¿Quiere pedir una nueva carta en la Mano {i+1}? (s/n): ").lower() != 's':
+                break
                 
-                manos_jugador[i].append(mazo.pop())
+            manos_jugador[i].append(mazo.pop())
     
-  
-    # Seguimos la regla del 17
+    # Turno de la casa (dealer)
     while suma_mano(mano_casa) < 17:
         print(f"Mano de la casa: {mano_casa} - Valor de la mano: {suma_mano(mano_casa)}")
         mano_casa.append(mazo.pop())
     
     # Mostrar la mano final del dealer
     print(f"Mano final de la casa: {mano_casa} - Valor de la mano: {suma_mano(mano_casa)}")
-    
-    if suma_mano(mano_casa) > 21 or suma_mano(manos_jugador[0]) > suma_mano(mano_casa):
-        print("¡Felicidades, ganaste!")
-    elif suma_mano(mano_casa) > suma_mano(manos_jugador[0]):
-        print("La casa gana, ¡mejor suerte la próxima!")
+    for i in range(len(manos_jugador)):
+        # Llamada a la comparación de manos sin usar variables
+        print(f"Resultado de la Mano {i+1}: {comparar_manos(manos_jugador[i], mano_casa)}")
+
+def comparar_manos(mano_jugador, mano_casa):
+    # Comparación directa del valor de las manos
+    if suma_mano(mano_jugador) > 21:
+        return "Te pasaste de 21, PERDISTE"
+    elif suma_mano(mano_casa) > 21:
+        return "La casa se pasó de 21, GANASTE"
+    elif suma_mano(mano_jugador) > suma_mano(mano_casa):
+        return "¡Felicidades, ganaste!"
+    elif suma_mano(mano_jugador) < suma_mano(mano_casa):
+        return "La casa gana, ¡mejor suerte la próxima!"
     else:
-        print("Empate.")
-  
+        return "Empate."
 
 def suma_mano(mano):
-    return sum(valor_carta(carta) for carta in mano)
+    # Función recursiva para sumar el valor de las cartas
+    if not mano:    # Caso base: si no hay más cartas en la mano
+        return 0
+    elif mano[0][0] == 'A':  # Si la primera carta es un As
+        # Decidir si usar el As como 1 o 11 de manera recursiva
+        return 11 + suma_mano(mano[1:]) if suma_mano(mano[1:]) + 11 <= 21 else 1 + suma_mano(mano[1:])
+    else:
+        # Sumar el valor de la carta y continuar con el resto de la mano
+        return valor_carta(mano[0]) + suma_mano(mano[1:])
 
 def valor_carta(carta):
+    # Asignar valores numéricos a las cartas
     return 10 if carta[0] in ['J', 'Q', 'K'] else (11 if carta[0] == 'A' else int(carta[0]))
 
 # Iniciar el juego    
